@@ -21,9 +21,10 @@ void setup() {
 
 void loop() {
     if (Serial.available()) {
-        currentVal = Serial.readStringUntil('\n').toInt();
-        if (currentVal > 0 && currentVal < 255) {
+        int newVal = Serial.readStringUntil('\n').toInt();
+        if (newVal > 0 && newVal < 256) {
             Serial.println("OK");
+            currentVal = newVal;
         } else {
             Serial.println("KO");
         }
