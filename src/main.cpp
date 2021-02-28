@@ -8,10 +8,14 @@ byte currentVal = 127;
 void slowPWM(byte pin, byte value) {
     int on = float(CYCLE_MS) * (value / 255.0);
     int off = CYCLE_MS - on;
-    digitalWrite(pin, 1);
-    delay(on);
-    digitalWrite(pin, 0);
-    delay(off);
+    if (on > 0) {
+        digitalWrite(pin, 1);
+        delay(on);
+    }
+    if (off > 0) {
+        digitalWrite(pin, 0);
+        delay(off);
+    }
 }
 
 void setup() {
