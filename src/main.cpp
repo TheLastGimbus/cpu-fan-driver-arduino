@@ -20,14 +20,15 @@ void setup() {
 }
 
 void loop() {
-    if (Serial.available()) {
-        int newVal = Serial.readStringUntil('\n').toInt();
-        if (newVal > 0 && newVal < 256) {
-            Serial.println("OK");
+    while (Serial.available()) {
+        int newVal = Serial.read();
+        if (newVal >= 0 && newVal < 256) {
+            Serial.print(1);
             currentVal = newVal;
         } else {
-            Serial.println("KO");
+            Serial.print(0);
         }
+        Serial.flush();
     }
     slowPWM(FAN_PIN, currentVal);
 }
